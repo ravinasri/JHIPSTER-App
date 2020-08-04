@@ -1,0 +1,4 @@
+entity Product {
+	regionName String
+}
+
