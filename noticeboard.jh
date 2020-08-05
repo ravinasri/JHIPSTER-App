@@ -1,0 +1,18 @@
+entity Board {
+	title String,
+    noticeList String
+}
+
+entity Notice
+{
+title String,
+description String
+
+}
+
+relationship OneToMany
+{
+Board to Notice{noticeList}
+}
+
+
