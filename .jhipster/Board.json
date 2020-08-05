@@ -1,0 +1,32 @@
+{
+  "name": "Board",
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "noticeList",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "notice",
+      "otherEntityRelationshipName": "noticeList",
+      "relationshipName": "notice"
+    }
+  ],
+  "changelogDate": "20200805091435",
+  "entityTableName": "board",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}
