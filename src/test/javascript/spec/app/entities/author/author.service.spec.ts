@@ -1,15 +1,18 @@
 import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { NoticeService } from 'app/entities/notice/notice.service';
-import { INotice, Notice } from 'app/shared/model/notice.model';
+import * as moment from 'moment';
+import { DATE_FORMAT } from 'app/shared/constants/input.constants';
+import { AuthorService } from 'app/entities/author/author.service';
+import { IAuthor, Author } from 'app/shared/model/author.model';
 
 describe('Service Tests', () => {
-  describe('Notice Service', () => {
+  describe('Author Service', () => {
     let injector: TestBed;
-    let service: NoticeService;
+    let service: AuthorService;
     let httpMock: HttpTestingController;
-    let elemDefault: INotice;
-    let expectedResult: INotice | INotice[] | boolean | null;
+    let elemDefault: IAuthor;
+    let expectedResult: IAuthor | IAuthor[] | boolean | null;
+    let currentDate: moment.Moment;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -17,15 +20,21 @@ describe('Service Tests', () => {
       });
       expectedResult = null;
       injector = getTestBed();
-      service = injector.get(NoticeService);
+      service = injector.get(AuthorService);
       httpMock = injector.get(HttpTestingController);
+      currentDate = moment();
 
-      elemDefault = new Notice(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
+      elemDefault = new Author(0, 'AAAAAAA', 'AAAAAAA', currentDate);
     });
 
     describe('Service methods', () => {
       it('should find an element', () => {
-        const returnedFromService = Object.assign({}, elemDefault);
+        const returnedFromService = Object.assign(
+          {
+            creationdate: currentDate.format(DATE_FORMAT),
+          },
+          elemDefault
+        );
 
         service.find(123).subscribe(resp => (expectedResult = resp.body));
 
@@ -34,34 +43,45 @@ describe('Service Tests', () => {
         expect(expectedResult).toMatchObject(elemDefault);
       });
 
-      it('should create a Notice', () => {
+      it('should create a Author', () => {
         const returnedFromService = Object.assign(
           {
             id: 0,
+            creationdate: currentDate.format(DATE_FORMAT),
           },
           elemDefault
         );
 
-        const expected = Object.assign({}, returnedFromService);
+        const expected = Object.assign(
+          {
+            creationdate: currentDate,
+          },
+          returnedFromService
+        );
 
-        service.create(new Notice()).subscribe(resp => (expectedResult = resp.body));
+        service.create(new Author()).subscribe(resp => (expectedResult = resp.body));
 
         const req = httpMock.expectOne({ method: 'POST' });
         req.flush(returnedFromService);
         expect(expectedResult).toMatchObject(expected);
       });
 
-      it('should update a Notice', () => {
+      it('should update a Author', () => {
         const returnedFromService = Object.assign(
           {
-            title: 'BBBBBB',
-            description: 'BBBBBB',
-            author: 'BBBBBB',
+            firstname: 'BBBBBB',
+            lastname: 'BBBBBB',
+            creationdate: currentDate.format(DATE_FORMAT),
           },
           elemDefault
         );
 
-        const expected = Object.assign({}, returnedFromService);
+        const expected = Object.assign(
+          {
+            creationdate: currentDate,
+          },
+          returnedFromService
+        );
 
         service.update(expected).subscribe(resp => (expectedResult = resp.body));
 
@@ -70,17 +90,22 @@ describe('Service Tests', () => {
         expect(expectedResult).toMatchObject(expected);
       });
 
-      it('should return a list of Notice', () => {
+      it('should return a list of Author', () => {
         const returnedFromService = Object.assign(
           {
-            title: 'BBBBBB',
-            description: 'BBBBBB',
-            author: 'BBBBBB',
+            firstname: 'BBBBBB',
+            lastname: 'BBBBBB',
+            creationdate: currentDate.format(DATE_FORMAT),
           },
           elemDefault
         );
 
-        const expected = Object.assign({}, returnedFromService);
+        const expected = Object.assign(
+          {
+            creationdate: currentDate,
+          },
+          returnedFromService
+        );
 
         service.query().subscribe(resp => (expectedResult = resp.body));
 
@@ -90,7 +115,7 @@ describe('Service Tests', () => {
         expect(expectedResult).toContainEqual(expected);
       });
 
-      it('should delete a Notice', () => {
+      it('should delete a Author', () => {
         service.delete(123).subscribe(resp => (expectedResult = resp.ok));
 
         const req = httpMock.expectOne({ method: 'DELETE' });
