@@ -43,11 +43,14 @@ describe('Notice e2e test', () => {
     await promise.all([
       noticeUpdatePage.setTitleInput('title'),
       noticeUpdatePage.setDescriptionInput('description'),
+      noticeUpdatePage.setAuthorInput('author'),
+      noticeUpdatePage.authorSelectLastOption(),
       noticeUpdatePage.noticeListSelectLastOption(),
     ]);
 
     expect(await noticeUpdatePage.getTitleInput()).to.eq('title', 'Expected Title value to be equals to title');
     expect(await noticeUpdatePage.getDescriptionInput()).to.eq('description', 'Expected Description value to be equals to description');
+    expect(await noticeUpdatePage.getAuthorInput()).to.eq('author', 'Expected Author value to be equals to author');
 
     await noticeUpdatePage.save();
     expect(await noticeUpdatePage.getSaveButton().isPresent(), 'Expected save button disappear').to.be.false;

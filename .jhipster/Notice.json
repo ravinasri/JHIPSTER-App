@@ -8,9 +8,20 @@
     {
       "fieldName": "description",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "author",
+      "fieldType": "String"
     }
   ],
   "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "author",
+      "otherEntityRelationshipName": "notice",
+      "relationshipName": "author",
+      "otherEntityField": "id"
+    },
     {
       "relationshipType": "many-to-one",
       "otherEntityName": "board",

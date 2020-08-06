@@ -35,6 +35,9 @@ public class NoticeResourceIT {
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
 
+    private static final String DEFAULT_AUTHOR = "AAAAAAAAAA";
+    private static final String UPDATED_AUTHOR = "BBBBBBBBBB";
+
     @Autowired
     private NoticeRepository noticeRepository;
 
@@ -55,7 +58,8 @@ public class NoticeResourceIT {
     public static Notice createEntity(EntityManager em) {
         Notice notice = new Notice()
             .title(DEFAULT_TITLE)
-            .description(DEFAULT_DESCRIPTION);
+            .description(DEFAULT_DESCRIPTION)
+            .author(DEFAULT_AUTHOR);
         return notice;
     }
     /**
@@ -67,7 +71,8 @@ public class NoticeResourceIT {
     public static Notice createUpdatedEntity(EntityManager em) {
         Notice notice = new Notice()
             .title(UPDATED_TITLE)
-            .description(UPDATED_DESCRIPTION);
+            .description(UPDATED_DESCRIPTION)
+            .author(UPDATED_AUTHOR);
         return notice;
     }
 
@@ -92,6 +97,7 @@ public class NoticeResourceIT {
         Notice testNotice = noticeList.get(noticeList.size() - 1);
         assertThat(testNotice.getTitle()).isEqualTo(DEFAULT_TITLE);
         assertThat(testNotice.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
+        assertThat(testNotice.getAuthor()).isEqualTo(DEFAULT_AUTHOR);
     }
 
     @Test
@@ -126,7 +132,8 @@ public class NoticeResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(notice.getId().intValue())))
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)));
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
+            .andExpect(jsonPath("$.[*].author").value(hasItem(DEFAULT_AUTHOR)));
     }
     
     @Test
@@ -141,7 +148,8 @@ public class NoticeResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(notice.getId().intValue()))
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE))
-            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION));
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
+            .andExpect(jsonPath("$.author").value(DEFAULT_AUTHOR));
     }
     @Test
     @Transactional
@@ -165,7 +173,8 @@ public class NoticeResourceIT {
         em.detach(updatedNotice);
         updatedNotice
             .title(UPDATED_TITLE)
-            .description(UPDATED_DESCRIPTION);
+            .description(UPDATED_DESCRIPTION)
+            .author(UPDATED_AUTHOR);
 
         restNoticeMockMvc.perform(put("/api/notices")
             .contentType(MediaType.APPLICATION_JSON)
@@ -178,6 +187,7 @@ public class NoticeResourceIT {
         Notice testNotice = noticeList.get(noticeList.size() - 1);
         assertThat(testNotice.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testNotice.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testNotice.getAuthor()).isEqualTo(UPDATED_AUTHOR);
     }
 
     @Test

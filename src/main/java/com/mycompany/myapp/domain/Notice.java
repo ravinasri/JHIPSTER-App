@@ -28,6 +28,13 @@ public class Notice implements Serializable {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "author")
+    private String author;
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = "notices", allowSetters = true)
+    private Author author;
+
     @ManyToOne
     @JsonIgnoreProperties(value = "notices", allowSetters = true)
     private Board noticeList;
@@ -67,6 +74,32 @@ public class Notice implements Serializable {
         this.description = description;
     }
 
+    public String getAuthor() {
+        return author;
+    }
+
+    public Notice author(String author) {
+        this.author = author;
+        return this;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public Notice author(Author author) {
+        this.author = author;
+        return this;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+
     public Board getNoticeList() {
         return noticeList;
     }
@@ -104,6 +137,7 @@ public class Notice implements Serializable {
             "id=" + getId() +
             ", title='" + getTitle() + "'" +
             ", description='" + getDescription() + "'" +
+            ", author='" + getAuthor() + "'" +
             "}";
     }
 }

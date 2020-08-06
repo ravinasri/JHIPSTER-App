@@ -25,6 +25,8 @@
                     <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
                     <th scope="col" ><span jhiTranslate="jhipsterSampleApp.notice.title">Title</span></th>
                     <th scope="col" ><span jhiTranslate="jhipsterSampleApp.notice.description">Description</span></th>
+                    <th scope="col" ><span jhiTranslate="jhipsterSampleApp.notice.author">Author</span></th>
+                    <th scope="col" ><span jhiTranslate="jhipsterSampleApp.notice.author">Author</span></th>
                     <th scope="col" ><span jhiTranslate="jhipsterSampleApp.notice.noticeList">Notice List</span></th>
                     <th scope="col"></th>
                 </tr>
@@ -34,6 +36,12 @@
                     <td><a [routerLink]="['/notice', notice.id, 'view']">{{ notice.id }}</a></td>
                     <td>{{ notice.title }}</td>
                     <td>{{ notice.description }}</td>
+                    <td>{{ notice.author }}</td>
+                    <td>
+                        <div *ngIf="notice.author">
+                            <a [routerLink]="['/author', notice.author?.id, 'view']" >{{ notice.author?.id }}</a>
+                        </div>
+                    </td>
                     <td>
                         <div *ngIf="notice.noticeList">
                             <a [routerLink]="['/board', notice.noticeList?.id, 'view']" >{{ notice.noticeList?.id }}</a>

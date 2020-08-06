@@ -31,7 +31,9 @@ export class NoticeUpdatePage {
 
   titleInput = element(by.id('field_title'));
   descriptionInput = element(by.id('field_description'));
+  authorInput = element(by.id('field_author'));
 
+  authorSelect = element(by.id('field_author'));
   noticeListSelect = element(by.id('field_noticeList'));
 
   async getPageTitle(): Promise<string> {
@@ -52,6 +54,30 @@ export class NoticeUpdatePage {
 
   async getDescriptionInput(): Promise<string> {
     return await this.descriptionInput.getAttribute('value');
+  }
+
+  async setAuthorInput(author: string): Promise<void> {
+    await this.authorInput.sendKeys(author);
+  }
+
+  async getAuthorInput(): Promise<string> {
+    return await this.authorInput.getAttribute('value');
+  }
+
+  async authorSelectLastOption(): Promise<void> {
+    await this.authorSelect.all(by.tagName('option')).last().click();
+  }
+
+  async authorSelectOption(option: string): Promise<void> {
+    await this.authorSelect.sendKeys(option);
+  }
+
+  getAuthorSelect(): ElementFinder {
+    return this.authorSelect;
+  }
+
+  async getAuthorSelectedOption(): Promise<string> {
+    return await this.authorSelect.element(by.css('option:checked')).getText();
   }
 
   async noticeListSelectLastOption(): Promise<void> {

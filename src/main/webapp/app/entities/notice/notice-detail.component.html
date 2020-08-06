@@ -16,6 +16,16 @@
                 <dd>
                     <span>{{ notice.description }}</span>
                 </dd>
+                <dt><span jhiTranslate="jhipsterSampleApp.notice.author">Author</span></dt>
+                <dd>
+                    <span>{{ notice.author }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhipsterSampleApp.notice.author">Author</span></dt>
+                <dd>
+                    <div *ngIf="notice.author">
+                        <a [routerLink]="['/author', notice.author?.id, 'view']">{{ notice.author?.id }}</a>
+                    </div>
+                </dd>
                 <dt><span jhiTranslate="jhipsterSampleApp.notice.noticeList">Notice List</span></dt>
                 <dd>
                     <div *ngIf="notice.noticeList">
