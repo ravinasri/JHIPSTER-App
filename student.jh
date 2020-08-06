@@ -1,0 +1,9 @@
+
+
+
+entity Student
+{
+id Integer,
+name String,
+mobile Long
+}
