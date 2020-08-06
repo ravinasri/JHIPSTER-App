@@ -10,6 +10,7 @@
         "product": "Product",
         "board": "Board",
         "notice": "Notice",
+        "student": "Student",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
